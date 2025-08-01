@@ -1,63 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viper's site</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cosmella's Site</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #004d00; 
-            color: #dcdcdc; 
+        ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
         }
-        .navbar {
-            background-color: #333;
+
+        body {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox, Safari 18.2+, Chromium 121+ */
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+            /* Older Safari and Chromium */
+            overflow: -moz-scrollbars-none;
+        }
+
+        h1,
+        h2 {
+            color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1b1b1b, #004d00);
+            font-family: sans-serif;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .glass-card {
+            width: 440px;
+            height: 360px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(11px);
+            -webkit-backdrop-filter: blur(11px);
+            border-radius: 20px;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 18px 9px rgba(255, 255, 255, 0.2);
+            position: relative;
             overflow: hidden;
         }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.8),
+                    transparent);
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.8),
+                    transparent,
+                    rgba(255, 255, 255, 0.3));
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .custom-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            background: rgba(255, 255, 255, 0.25);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 10px 24px;
+            cursor: pointer;
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 200px;
             text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
         }
-        .navbar a:hover {
-            background-color: #5e7d6a;
-            color: black;
+
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
-        .container {
-            padding: 20px;
+        .custom-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
         }
-        .link-section {
-            margin: 20px 0;
+
+        .custom-btn:active {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(0);
         }
-        .link-section a {
-            display: block;
-            color: #750899;
-            padding: 10px;
-            background: #fff;
-            margin-bottom: 10px;
-            text-decoration: none;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+
+        .custom-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 255, 100, 0.6);
         }
-        .link-section a:hover {
-            background-color: #8704b3; 
-            color: #fff; 
+
+        .button-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            padding-top: 40px;
         }
     </style>
 </head>
+
 <body>
-    <h1> Welcome to my website </h1>
-    <h2>My Profile</h2>
-    <iframe src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222&DarkMode=true&Background=004d00" width="100%" height="350xp" style="border: none; margin: 0; padding: 0; display: block; overflow: hidden;"></iframe>
-        <div class="link-section">
-            <h2>My Links</h2>
-            <a href="https://www.roblox.com/users/530829101/profile" target="_blank">Visit My Roblox Account</a>
-            <a href="https://scriptblox.com/u/Viper" target="_blank">Visit My Script Blox</a>
+    <div class="list-container">
+        <h2>Profile</h2>
+        <div class="glass-card">
+            <iframe id="Cosmella-profile" src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222"
+                sandbox="allow-scripts allow-same-origin allow-modals" width="100%" height="100%"
+                style="border: none; margin: 0; padding: 0; display: block; overflow: hidden; border-radius: 20px;">
+            </iframe>
         </div>
+        <h1>Links</h1>
+        <div class="glass-card" , style="width: 300px; height: 360px;">
+            <div class="button-list">
+                <button class="custom-btn" , id="Profile">
+                    <img src="https://cdn.simpleicons.org/roblox" alt="icon" class="btn-icon" />
+                    Roblox Profile
+                </button>
+                <button class="custom-btn" , id="Script-Blox">
+                    <img src="https://r2.guns.lol/7e671c9b-1689-4d72-a5e5-b972f7d7fb09.png" alt="icon"
+                        class="btn-icon" />
+                    Script Blox
+                </button>
+                <button class="custom-btn" , id="Spotify">
+                    <img src="https://cdn.simpleicons.org/spotify" alt="icon" class="btn-icon" />
+                    Spotify
+                </button>
+                <button class="custom-btn" , id="Github">
+                    <img src="https://cdn.simpleicons.org/github" alt="icon" class="btn-icon" />
+                    Github
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
+<script>
+    // buttons
+    document.getElementById('Profile').onclick = function () {
+        window.open("https://www.roblox.com/users/530829101/profile", "_blank");
+    }
+    document.getElementById('Script-Blox').onclick = function () {
+        window.open("https://scriptblox.com/u/Viper", "_blank");
+    }
+    document.getElementById('Spotify').onclick = function () {
+        window.open("https://open.spotify.com/user/31ba4npdeg5oazuyrctq4ruozoae", "_blank");
+    }
+    document.getElementById('Github').onclick = function () {
+        window.open("https://github.com/Cosmella-v", "_blank");
+    }
+</script>
+<script>
+    // injects into the IFrame
+    const iframe = document.getElementById('Cosmella-profile');
+
+    const JS = `
+   function ProfileAdded(avatarImg) {
+        const wrapper = document.createElement('span');
+        wrapper.style.display = 'inline-flex';
+        wrapper.style.alignItems = 'left';
+        wrapper.style.padding = '8px';
+
+        avatarImg.parentElement.insertBefore(wrapper, avatarImg);
+
+        const newImg1 = document.createElement('img');
+        newImg1.src = avatarImg.src;
+        newImg1.alt = "profile";
+        newImg1.style.width = avatarImg.style.width;
+        newImg1.style.height =  avatarImg.style.height;
+
+        const newImg2 = document.createElement('img');
+        newImg2.src = 'https://cosmella-v.github.io/other-icon.png';
+        newImg2.alt = 'Other icons stuff';
+        newImg2.style.width = newImg1.style.width;
+        newImg2.style.height = newImg1.style.height;
+
+        wrapper.appendChild(newImg1);
+        wrapper.appendChild(newImg2);
+        avatarImg.remove();
+    }
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) { 
+                    if (node.tagName === 'IMG' && node.alt && node.alt.includes("cosmella_v's avatar")) {
+                        ProfileAdded(node);
+                    } else {
+                        const imgs = node.querySelectorAll("img[alt*=\\"cosmella_v's avatar\\"]");
+                        imgs.forEach(img => ProfileAdded(img));
+                    }
+                }
+            });
+        });
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+`;
+    const cs = `
+     .profile-card, .activity, .profile-info h2, .profile-info p {
+                        color: #ffffff;
+                    }
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0);
+    }
+    .activity {
+        background: rgba(0,77,0, 0.5);
+        -webkit-backdrop-filter: blur(11px);
+        backdrop-filter: blur(11px);
+    }
+
+   .profile-card {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(12, 255, 24, 0.17);
+    backdrop-filter: blur(11px);
+    -webkit-backdrop-filter: blur(11px);
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 18px 9px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.slider .progress {
+    background: #a83dff;
+}
+.profile-info {
+    flex: 1 1 auto; 
+    width: 100%;
+    overflow: none; 
+    background: transparent;
+    box-sizing: border-box;
+    padding: 20px; 
+    scrollbar-width: none; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-overflow-style: none;  
+}
+.profile-info::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+`
+    iframe.addEventListener('load', () => {
+        console.log('injected theming');
+        iframe.contentWindow.postMessage({ type: 'inject-js', js: JS }, '*');
+        iframe.contentWindow.postMessage({ type: 'inject-css', css: cs }, '*');
+    });
+
+    console.log("sent");
+
+</script>
+
 </html>
