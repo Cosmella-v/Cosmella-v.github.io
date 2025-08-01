@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/100521306?v=4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cosmella's Site</title>
     <style>
@@ -13,14 +14,11 @@
 
         body {
             -ms-overflow-style: none;
-            /* Internet Explorer 10+ */
             scrollbar-width: none;
-            /* Firefox, Safari 18.2+, Chromium 121+ */
         }
 
         body::-webkit-scrollbar {
             display: none;
-            /* Older Safari and Chromium */
             overflow: -moz-scrollbars-none;
         }
 
@@ -309,8 +307,6 @@
         iframe.contentWindow.postMessage({ type: 'inject-js', js: JS }, '*');
         iframe.contentWindow.postMessage({ type: 'inject-css', css: cs }, '*');
     });
-
-    console.log("sent");
 
 </script>
 
