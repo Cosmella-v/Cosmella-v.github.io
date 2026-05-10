@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="UTF-8" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/100521306?v=4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cosmella's Site</title>
     <style>
+        
         ::-webkit-scrollbar {
             width: 0px;
             height: 0px;
@@ -15,6 +17,14 @@
         body {
             -ms-overflow-style: none;
             scrollbar-width: none;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            overflow: hidden;
+            position: relative;
         }
 
         body::-webkit-scrollbar {
@@ -27,60 +37,32 @@
             color: #ffffff;
         }
 
-        body {
-            margin: 0;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1b1b1b, #004d00);
-            font-family: sans-serif;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background:
+                linear-gradient(135deg, #1b1b1b, #004d00);
+
+            background-size: cover;
+            z-index: -2;
         }
 
         .glass-card {
             width: 440px;
             height: 360px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(11px);
-            -webkit-backdrop-filter: blur(11px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-radius: 20px;
-
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow:
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 0 18px 9px rgba(255, 255, 255, 0.2);
+            opacity: 0.8;
+            z-index: 1;
+            animation: float 6s infinite alternate;
             position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.8),
-                    transparent);
-        }
-
-        .glass-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(180deg,
-                    rgba(255, 255, 255, 0.8),
-                    transparent,
-                    rgba(255, 255, 255, 0.3));
+            overflow: auto;
         }
 
         .list-container {
@@ -91,14 +73,12 @@
         }
 
         .custom-btn {
+            background: rgba(255, 255, 255, 0.1);
             display: inline-flex;
             align-items: center;
             gap: 8px;
-
-            background: rgba(255, 255, 255, 0.25);
-            border: 1.5px solid rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
             border-radius: 12px;
             color: white;
             font-weight: 600;
@@ -106,9 +86,8 @@
             padding: 10px 24px;
             cursor: pointer;
             transition: background 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 200px;
-            text-align: center;
+            text-align: left
         }
 
         .btn-icon {
@@ -117,8 +96,8 @@
             object-fit: contain;
         }
         .custom-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(222, 255, 222, 0.4);
             transform: translateY(-2px);
         }
 
@@ -138,44 +117,86 @@
             flex-direction: column;
             gap: 16px;
             align-items: center;
-            padding-top: 40px;
+            padding-top: 10px;
+        }
+        .spotify-card {
+            display: inline-block;
+            padding: 12px;
+            border-radius: 20px;
+
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.35),
+            inset 0 1px 1px rgba(255, 255, 255, 0.12);
+        }
+
+        .spotify-card img {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+
+            border-radius: 14px;
+
+            filter: blur(0.3px) saturate(1.1);
+
+            opacity: 0.95;
         }
     </style>
 </head>
 
 <body>
-    <div class="list-container">
-        <h2>Profile</h2>
+    <div class="spotify-card"         style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
+    <img 
+        src="https://spotify-recently-played-readme.vercel.app/api?user=31ba4npdeg5oazuyrctq4ruozoae&count=3&unique=true"
+        alt="Spotify recently played"
+    />
+    </div>
+    <div class="list-container"  style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
         <div class="glass-card">
             <iframe id="Cosmella-profile" src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222"
                 sandbox="allow-scripts allow-same-origin allow-modals" width="100%" height="100%"
-                style="border: none; margin: 0; padding: 0; display: block; overflow: hidden; border-radius: 20px;">
+                style="border: none; margin: 0; padding: 0; display: block; overflow: auto; border-radius: 20px;">
             </iframe>
         </div>
-        <h1>Links</h1>
-        <div class="glass-card" , style="width: 300px; height: 360px;">
+        <div class="glass-card" style="width: 300px;">
             <div class="button-list">
-                <button class="custom-btn" , id="Profile">
-                    <img src="https://cdn.simpleicons.org/roblox" alt="icon" class="btn-icon" />
-                    Roblox Profile
+                <button class="custom-btn"  id="Youtube">
+                    <img src="https://cdn.simpleicons.org/youtube" alt="icon" class="btn-icon" />
+                    Viper
                 </button>
-                <button class="custom-btn" , id="Script-Blox">
+                <button class="custom-btn"  id="Spotify">
+                    <img src="https://cdn.simpleicons.org/spotify" alt="icon" class="btn-icon" />
+                    Viper
+                </button>
+                 <button class="custom-btn"  id="Codeburg">
+                    <img src="https://design.codeberg.org/logo-kit/icon.svg" alt="icon" class="btn-icon" />
+                    Cosmella (@Cosmella-v)
+                </button>
+                <button class="custom-btn"  id="Github">
+                    <img src="https://cdn.simpleicons.org/github" alt="icon" class="btn-icon" />
+                    Viper @Cosmella-v
+                </button>
+                <button class="custom-btn"  id="Steam">
+                    <img src="https://cdn.simpleicons.org/steam" alt="icon" class="btn-icon" />
+                    Viper
+                </button>
+                <button class="custom-btn"  id="Profile">
+                    <img src="https://cdn.simpleicons.org/roblox" alt="icon" class="btn-icon" />
+                    Viper @Viper_Protogen
+                </button>
+                <button class="custom-btn"  id="Script-Blox">
                     <img src="https://r2.guns.lol/7e671c9b-1689-4d72-a5e5-b972f7d7fb09.png" alt="icon"
                         class="btn-icon" />
-                    Script Blox
-                </button>
-                <button class="custom-btn" , id="Spotify">
-                    <img src="https://cdn.simpleicons.org/spotify" alt="icon" class="btn-icon" />
-                    Spotify
-                </button>
-                <button class="custom-btn" , id="Github">
-                    <img src="https://cdn.simpleicons.org/github" alt="icon" class="btn-icon" />
-                    Github
+                    Viper
                 </button>
             </div>
         </div>
     </div>
-
 </body>
 <script>
     // buttons
@@ -190,6 +211,15 @@
     }
     document.getElementById('Github').onclick = function () {
         window.open("https://github.com/Cosmella-v", "_blank");
+    }
+    document.getElementById('Youtube').onclick = function () {
+        window.open("https://www.youtube.com/channel/UC3A8dtlO94rHEkn4Kz7aB7g", "_blank");
+    }
+    document.getElementById('Steam').onclick = function () {
+        window.open("https://steamcommunity.com/profiles/76561199093028507", "_blank");
+    }
+    document.getElementById('Codeburg').onclick = function () {
+        window.open("https://codeberg.org/Cosmella-v", "_blank");
     }
 </script>
 <script>
@@ -250,36 +280,46 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        overflow: hidden;
+        overflow: overflow;
+    }
+    ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+    }
+    body::-webkit-scrollbar {
+            display: none;
+            overflow: -moz-scrollbars-none;
     }
     body {
         display: flex;
         align-items: center;
         justify-content: center;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
         background: rgba(255, 255, 255, 0);
     }
     .activity {
-        background: rgba(0,77,0, 0.5);
+        background: rgba(0,77,0, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
         -webkit-backdrop-filter: blur(11px);
+        border-color: rgba(222, 255, 222, 1);
         backdrop-filter: blur(11px);
     }
 
    .profile-card {
     width: 100vw;
-    height: 100vh;
-    background: rgba(12, 255, 24, 0.17);
-    backdrop-filter: blur(11px);
-    -webkit-backdrop-filter: blur(11px);
+    height: 100%;
+    background: rgba(12, 255, 24, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
+    
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border-radius: 0;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 0 18px 9px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.03);
     position: relative;
-    overflow: hidden;
-    display: flex;
+    overflow: auto;
     flex-direction: column;
 }
 .slider .progress {
@@ -288,7 +328,7 @@
 .profile-info {
     flex: 1 1 auto; 
     width: 100%;
-    overflow: none; 
+    overflow: auto; 
     background: transparent;
     box-sizing: border-box;
     padding: 20px; 
