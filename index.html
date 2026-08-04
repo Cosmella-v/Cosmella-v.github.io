@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    
     <meta charset="UTF-8" />
-    <link rel="icon" href="https://avatars.githubusercontent.com/u/100521306?v=4">
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/100521306">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cosmella's Site</title>
     <style>
-        
         ::-webkit-scrollbar {
             width: 0px;
             height: 0px;
         }
-
 
         body::-webkit-scrollbar {
             display: none;
@@ -89,7 +85,6 @@
             border-radius: 20px;
             opacity: 0.8;
             z-index: 1;
-            animation: float 6s infinite alternate;
             position: relative;
             overflow: auto;
         }
@@ -147,9 +142,27 @@
             gap: 16px;
             padding-top: 10px;
         }
-        .spotify-card {
+        .spotify-card .content {
+            scale: 1;
+        }
+        .spotify-card.expanded .content {
+            scale: 0;
+        }
+        .spotify-card.expanded .icon {
+            scale: 1;
+        }
+        .spotify-card .icon {
+            width: 60px;
+            height: 60px;
+            padding-bottom: -5%;
+            transition: all 0.3s ease;
+            scale: 0
+        }
+
+        .spotify-card .content, .spotify-card .icon {
+            transition: all 0.3s ease;
             display: inline-block;
-            padding: 12px;
+            padding: 4px;
             border-radius: 20px;
 
             background: rgba(255, 255, 255, 0.08);
@@ -163,7 +176,7 @@
             inset 0 1px 1px rgba(255, 255, 255, 0.12);
         }
 
-        .spotify-card img {
+        .spotify-card .content {
             display: block;
             width: 100%;
             max-width: 500px;
@@ -171,21 +184,32 @@
             border-radius: 14px;
 
             filter: blur(0.3px) saturate(1.1);
-            mix-blend-mode: multiply;
 
             opacity: 0.95;
         }
+        /*
+        <div class="spotify-card"         style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
+        <img 
+            src="https://spotify-recently-played-readme.vercel.app/api?user=31ba4npdeg5oazuyrctq4ruozoae&count=3&unique=true"
+            alt="Spotify recently played"
+        />
+        </div>
+        */
+
     </style>
 </head>
 
 <body>
-    <div class="spotify-card"         style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
-    <img 
-        src="https://spotify-recently-played-readme.vercel.app/api?user=31ba4npdeg5oazuyrctq4ruozoae&count=3&unique=true"
-        alt="Spotify recently played"
-    />
-    </div>
-    <div class="list-container"  style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
+     <div class="spotify-card expandable" x="0.35" style = "transform: translate(-50%, 50%);">
+        <img class="icon" src="https://cdn.simpleicons.org/spotify">
+        <img
+            style="bottom: 80px; right: 80px; top: 300px; left: 120px; transform: translate(-30%, -40%);" 
+            class="content"
+            src="https://spotify-recently-played-readme.vercel.app/api?user=31ba4npdeg5oazuyrctq4ruozoae&count=3&unique=true"
+            alt="Spotify recently played"
+        />
+        </div>
+    <div class="list-container" style="transform: translate(-50%, 0);">
         <div class="glass-card">
             <iframe id="Cosmella-profile" src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222&DarkMode=true"
                 sandbox="allow-scripts allow-same-origin allow-modals" width="100%" height="100%"
@@ -238,6 +262,21 @@
             button.onclick = function() {
                 window.open(`${link}?ref=Cosmella-v`, "_blank");
             }
+        }
+    }
+    const expandables = document.getElementsByClassName("expandable")
+      for (let i = 0; i < expandables.length; i++) {
+        let element = expandables[i]
+        if (element && element.getAttribute("x")) {
+            const trigger = window.innerWidth * (Number(element.getAttribute("x")) ||0);
+            document.addEventListener("mousemove", (e) => {
+                console.log(e.clientX > trigger)
+                if (e.clientX > trigger) {
+                    element.classList.add("expanded");
+                } else {
+                    element.classList.remove("expanded");
+                }
+            })
         }
     }
 </script>
