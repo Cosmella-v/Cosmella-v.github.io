@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/100521306">
@@ -20,7 +21,11 @@
         h2 {
             color: #ffffff;
         }
-       
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -28,32 +33,45 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
+            align-items: safe center;
             justify-content: center;
+            justify-content: safe center;
             font-family: sans-serif;
-            overflow-x: hidden; /* prevent horizontal scroll */
+            overflow-x: hidden;
+            /* prevent horizontal scroll */
             overflow-y: auto;
-            padding-bottom: 5px; /*fix scrolling not going far enough*/
+            padding: 20px 12px 5px;
+            /*fix scrolling not going far enough*/
             position: relative;
         }
-       @keyframes flow { /* ughh math*/
+
+        @keyframes flow {
+
+            /* ughh math*/
             0% {
                 background-position: 0% 0%;
             }
-           16.67% {
+
+            16.67% {
                 background-position: 50% 100%;
             }
+
             33.33% {
                 background-position: 100% 50%;
             }
+
             50% {
                 background-position: 100% 100%;
             }
+
             66.67% {
                 background-position: 50% 100%;
             }
+
             83.33% {
                 background-position: 100% 50%;
             }
+
             100% {
                 background-position: 0% 0%;
             }
@@ -64,7 +82,8 @@
             position: fixed;
             inset: -50px;
 
-           background: /* based on a gradent from https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/radial-gradient */
+            background:
+                /* based on a gradent from https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/radial-gradient */
                 radial-gradient(circle at top, #380474, transparent 70%),
                 radial-gradient(circle at right, #004d00, transparent 70%),
                 radial-gradient(ellipse at bottom, #db64e6, transparent),
@@ -76,9 +95,10 @@
 
             z-index: -2;
         }
+
         .glass-card {
-            width: 440px;
-            height: 360px;
+            width: clamp(240px, 90vw, 440px);
+            height: clamp(220px, 55vh, 360px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.05);
             box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
@@ -89,16 +109,34 @@
             overflow: auto;
         }
 
-        .list-container, .button-list {
+        .glass-card.compact {
+            width: clamp(220px, 80vw, 300px);
+            height: auto;
+        }
+
+        .list-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             background: transparent;
-            padding-bottom: 5px; /*fix scrolling not going far enough*/
+            padding-bottom: 8px;
+            /*fix scrolling not going far enough*/
+            width: clamp(240px, 90vw, 440px);
         }
 
-        .custom-btn, .link-button {
+        .button-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .custom-btn,
+        .link-button {
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             background: rgba(255, 255, 255, 0.1);
@@ -113,7 +151,7 @@
             padding: 10px 24px;
             cursor: pointer;
             transition: background 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
-            width: 200px;
+            width: clamp(160px, 70vw, 200px);
             text-align: left
         }
 
@@ -121,36 +159,40 @@
             width: 24px;
             height: 24px;
             object-fit: contain;
+            flex-shrink: 0;
         }
-        .custom-btn:hover, .link-button:hover {
+
+        .custom-btn:hover,
+        .link-button:hover {
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(222, 255, 222, 0.4);
             transform: translateY(-2px);
         }
 
-        .custom-btn:active, .link-button:active {
+        .custom-btn:active,
+        .link-button:active {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(0);
         }
 
-        .custom-btn:focus, .link-button:focus {
+        .custom-btn:focus,
+        .link-button:focus {
             outline: none;
         }
 
-        .button-list {
-            gap: 16px;
-            padding-top: 10px;
-        }
         .spotify-card .content {
             scale: 1;
         }
+
         .spotify-card.expanded .content {
             scale: 0;
         }
+
         .spotify-card.expanded .icon {
             scale: 1;
         }
+
         .spotify-card .icon {
             width: 60px;
             height: 60px;
@@ -159,7 +201,8 @@
             scale: 0
         }
 
-        .spotify-card .content, .spotify-card .icon {
+        .spotify-card .content,
+        .spotify-card .icon {
             transition: all 0.3s ease;
             display: inline-block;
             padding: 4px;
@@ -172,14 +215,15 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
 
             box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.35),
-            inset 0 1px 1px rgba(255, 255, 255, 0.12);
+                0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 1px rgba(255, 255, 255, 0.12);
         }
 
         .spotify-card .content {
             display: block;
-            width: 100%;
-            max-width: 500px;
+            width: clamp(220px, 90vw, 500px);
+            max-width: 100%;
+            height: auto;
 
             border-radius: 14px;
 
@@ -187,62 +231,64 @@
 
             opacity: 0.95;
         }
-        /*
-        <div class="spotify-card"         style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
-        <img 
-            src="https://spotify-recently-played-readme.vercel.app/api?user=31ba4npdeg5oazuyrctq4ruozoae&count=3&unique=true"
-            alt="Spotify recently played"
-        />
-        </div>
-        */
 
+        .spotify-card {
+            display: flex;
+            justify-content: center;
+            max-width: calc(100vw - 20px);
+            position: absolute;
+            top: 50%;
+            left: clamp(5px, calc(10% - (clamp(240px, 90vw, 440px) / 2) - clamp(70px, 15vw, 110px)), 50px);
+            transform: translateY(-50%);
+            z-index: 10;
+        }
     </style>
 </head>
 
 <body>
-     <div class="spotify-card expandable" x="0.35" style = "transform: translate(-50%, 50%);">
+    <div class="spotify-card expandable" x="0.35">
         <img class="icon" src="https://cdn.simpleicons.org/spotify">
-        <img
-            style="bottom: 80px; right: 80px; top: 300px; left: 120px; transform: translate(-30%, -40%);" 
-            class="content"
+        <img class="content"
             src="https://spotify-recently-played-readme.vercel.app/api?user=31ba4npdeg5oazuyrctq4ruozoae&count=3&unique=true"
-            alt="Spotify recently played"
-        />
-        </div>
-    <div class="list-container" style="transform: translate(-50%, 0);">
+            alt="Spotify recently played" />
+    </div>
+    <div class="list-container">
         <div class="glass-card">
-            <iframe id="Cosmella-profile" src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222&DarkMode=true"
+            <iframe id="Cosmella-profile"
+                src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222&DarkMode=true"
                 sandbox="allow-scripts allow-same-origin allow-modals" width="100%" height="100%"
                 style="border: none; margin: 0; padding: 0; display: block; overflow: auto; border-radius: 20px;">
             </iframe>
         </div>
-        <div class="glass-card" style="width: 300px;">
+        <div class="glass-card compact">
             <div class="button-list">
-                <button class="link-button"  id="Youtube" link="https://www.youtube.com/channel/UC3A8dtlO94rHEkn4Kz7aB7g">
+                <button class="link-button" id="Youtube"
+                    link="https://www.youtube.com/channel/UC3A8dtlO94rHEkn4Kz7aB7g">
                     <img src="https://cdn.simpleicons.org/youtube" alt="icon" class="btn-icon" />
                     Viper
                 </button>
-                <button class="link-button"  id="Spotify" link = "https://open.spotify.com/user/31ba4npdeg5oazuyrctq4ruozoae">
+                <button class="link-button" id="Spotify"
+                    link="https://open.spotify.com/user/31ba4npdeg5oazuyrctq4ruozoae">
                     <img src="https://cdn.simpleicons.org/spotify" alt="icon" class="btn-icon" />
                     Viper
                 </button>
-                 <button class="link-button"  id="Codeburg" link="https://codeberg.org/Cosmella-v">
+                <button class="link-button" id="Codeburg" link="https://codeberg.org/Cosmella-v">
                     <img src="https://design.codeberg.org/logo-kit/icon.svg" alt="icon" class="btn-icon" />
                     Cosmella (@Cosmella-v)
                 </button>
-                <button class="link-button"  id="Github" link="https://github.com/Cosmella-v">
+                <button class="link-button" id="Github" link="https://github.com/Cosmella-v">
                     <img src="https://cdn.simpleicons.org/github" alt="icon" class="btn-icon" />
                     Viper (@Cosmella-v)
                 </button>
-                <button class="link-button"  id="Steam" link="https://steamcommunity.com/profiles/76561199093028507">
+                <button class="link-button" id="Steam" link="https://steamcommunity.com/profiles/76561199093028507">
                     <img src="https://cdn.simpleicons.org/steam" alt="icon" class="btn-icon" />
                     Viper
                 </button>
-                <button class="link-button"  id="Profile" link="https://www.roblox.com/users/530829101/profile">
+                <button class="link-button" id="Profile" link="https://www.roblox.com/users/530829101/profile">
                     <img src="https://cdn.simpleicons.org/roblox" alt="icon" class="btn-icon" />
                     Viper (@Viper_Protogen)
                 </button>
-                <button class="link-button"  id="Script-Blox" link = "https://scriptblox.com/u/Viper">
+                <button class="link-button" id="Script-Blox" link="https://scriptblox.com/u/Viper">
                     <img src="https://r2.guns.lol/7e671c9b-1689-4d72-a5e5-b972f7d7fb09.png" alt="icon"
                         class="btn-icon" />
                     Viper
@@ -259,23 +305,33 @@
         let button = linkbtns[i]
         if (button && button.getAttribute("link")) {
             const link = button.getAttribute("link")
-            button.onclick = function() {
+            button.onclick = function () {
                 window.open(`${link}?ref=Cosmella-v`, "_blank");
             }
         }
     }
     const expandables = document.getElementsByClassName("expandable")
-      for (let i = 0; i < expandables.length; i++) {
+    for (let i = 0; i < expandables.length; i++) {
         let element = expandables[i]
         if (element && element.getAttribute("x")) {
-            const trigger = window.innerWidth * (Number(element.getAttribute("x")) ||0);
-            document.addEventListener("mousemove", (e) => {
-                console.log(e.clientX > trigger)
-                if (e.clientX > trigger) {
+            let winsize = [window.innerWidth, window.innerWidth * (Number(element.getAttribute("x")) || 0)]
+            const handleFunction = (position) => {
+                if (winsize[0] !== window.innerWidth) {
+                    winsize[0] = window.innerWidth;
+                    winsize[1] = window.innerWidth * (Number(element.getAttribute("x")) || 0)
+                    //console.log(element,"is recalcuting! screen size changed!!!")
+                }
+                if (position > winsize[1]) {
                     element.classList.add("expanded");
                 } else {
                     element.classList.remove("expanded");
                 }
+            }
+            document.addEventListener("mousemove", (e) => {
+                handleFunction(e.clientX)
+            })
+            document.addEventListener("touchmove", function(e) {
+                handleFunction(e.changedTouches[0].clientX)
             })
         }
     }
@@ -284,7 +340,7 @@
 <script>
     // injects into the IFrame
     const iframe = document.getElementById('Cosmella-profile');
-        const cs = `
+    const cs = `
         .profile-card, .activity, .profile-info h2, .profile-info p, .avatar .profile, h1, h2, p {
             color: #ffffff;
             background: initial!important;
