@@ -14,18 +14,6 @@
             height: 0px;
         }
 
-        body {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
 
         body::-webkit-scrollbar {
             display: none;
@@ -36,27 +24,68 @@
         h2 {
             color: #ffffff;
         }
+       
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            overflow-x: hidden; /* prevent horizontal scroll */
+            overflow-y: auto;
+            padding-bottom: 5px; /*fix scrolling not going far enough*/
+            position: relative;
+        }
+       @keyframes flow { /* ughh math*/
+            0% {
+                background-position: 0% 0%;
+            }
+           16.67% {
+                background-position: 50% 100%;
+            }
+            33.33% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            66.67% {
+                background-position: 50% 100%;
+            }
+            83.33% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
 
         body::before {
             content: "";
             position: fixed;
-            inset: 0;
+            inset: -50px;
 
-            background:
-                linear-gradient(135deg, #1b1b1b, #004d00);
+           background: /* based on a gradent from https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/radial-gradient */
+                radial-gradient(circle at top, #380474, transparent 70%),
+                radial-gradient(circle at right, #004d00, transparent 70%),
+                radial-gradient(ellipse at bottom, #db64e6, transparent),
+                radial-gradient(ellipse at left, #4d9f0c, transparent),
+                #000000;
 
-            background-size: cover;
+            background-size: 200% 200%;
+            animation: flow 50s ease-in-out infinite;
+
             z-index: -2;
         }
-
         .glass-card {
             width: 440px;
             height: 360px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.05);
             box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border-radius: 20px;
             opacity: 0.8;
             z-index: 1;
@@ -65,24 +94,27 @@
             overflow: auto;
         }
 
-        .list-container {
+        .list-container, .button-list {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            background: transparent;
+            padding-bottom: 5px; /*fix scrolling not going far enough*/
         }
 
-        .custom-btn {
+        .custom-btn, .link-button {
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             background: rgba(255, 255, 255, 0.1);
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
             border-color: rgba(255, 255, 255, 0.4);
             border-radius: 12px;
             color: white;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: clamp(0.7rem, 2vw, 0.7rem);
             padding: 10px 24px;
             cursor: pointer;
             transition: background 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
@@ -95,28 +127,24 @@
             height: 24px;
             object-fit: contain;
         }
-        .custom-btn:hover {
+        .custom-btn:hover, .link-button:hover {
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(222, 255, 222, 0.4);
             transform: translateY(-2px);
         }
 
-        .custom-btn:active {
+        .custom-btn:active, .link-button:active {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(0);
         }
 
-        .custom-btn:focus {
+        .custom-btn:focus, .link-button:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 255, 100, 0.6);
         }
 
         .button-list {
-            display: flex;
-            flex-direction: column;
             gap: 16px;
-            align-items: center;
             padding-top: 10px;
         }
         .spotify-card {
@@ -143,6 +171,7 @@
             border-radius: 14px;
 
             filter: blur(0.3px) saturate(1.1);
+            mix-blend-mode: multiply;
 
             opacity: 0.95;
         }
@@ -158,38 +187,38 @@
     </div>
     <div class="list-container"  style = "bottom: 80px; right: 80px; top: 300px; left: 120px;">
         <div class="glass-card">
-            <iframe id="Cosmella-profile" src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222"
+            <iframe id="Cosmella-profile" src="https://Cosmella-v.github.io/lanyard_Embeder/?id=764832218115080222&DarkMode=true"
                 sandbox="allow-scripts allow-same-origin allow-modals" width="100%" height="100%"
                 style="border: none; margin: 0; padding: 0; display: block; overflow: auto; border-radius: 20px;">
             </iframe>
         </div>
         <div class="glass-card" style="width: 300px;">
             <div class="button-list">
-                <button class="custom-btn"  id="Youtube">
+                <button class="link-button"  id="Youtube" link="https://www.youtube.com/channel/UC3A8dtlO94rHEkn4Kz7aB7g">
                     <img src="https://cdn.simpleicons.org/youtube" alt="icon" class="btn-icon" />
                     Viper
                 </button>
-                <button class="custom-btn"  id="Spotify">
+                <button class="link-button"  id="Spotify" link = "https://open.spotify.com/user/31ba4npdeg5oazuyrctq4ruozoae">
                     <img src="https://cdn.simpleicons.org/spotify" alt="icon" class="btn-icon" />
                     Viper
                 </button>
-                 <button class="custom-btn"  id="Codeburg">
+                 <button class="link-button"  id="Codeburg" link="https://codeberg.org/Cosmella-v">
                     <img src="https://design.codeberg.org/logo-kit/icon.svg" alt="icon" class="btn-icon" />
                     Cosmella (@Cosmella-v)
                 </button>
-                <button class="custom-btn"  id="Github">
+                <button class="link-button"  id="Github" link="https://github.com/Cosmella-v">
                     <img src="https://cdn.simpleicons.org/github" alt="icon" class="btn-icon" />
-                    Viper @Cosmella-v
+                    Viper (@Cosmella-v)
                 </button>
-                <button class="custom-btn"  id="Steam">
+                <button class="link-button"  id="Steam" link="https://steamcommunity.com/profiles/76561199093028507">
                     <img src="https://cdn.simpleicons.org/steam" alt="icon" class="btn-icon" />
                     Viper
                 </button>
-                <button class="custom-btn"  id="Profile">
+                <button class="link-button"  id="Profile" link="https://www.roblox.com/users/530829101/profile">
                     <img src="https://cdn.simpleicons.org/roblox" alt="icon" class="btn-icon" />
-                    Viper @Viper_Protogen
+                    Viper (@Viper_Protogen)
                 </button>
-                <button class="custom-btn"  id="Script-Blox">
+                <button class="link-button"  id="Script-Blox" link = "https://scriptblox.com/u/Viper">
                     <img src="https://r2.guns.lol/7e671c9b-1689-4d72-a5e5-b972f7d7fb09.png" alt="icon"
                         class="btn-icon" />
                     Viper
@@ -198,154 +227,92 @@
         </div>
     </div>
 </body>
+
 <script>
-    // buttons
-    document.getElementById('Profile').onclick = function () {
-        window.open("https://www.roblox.com/users/530829101/profile", "_blank");
-    }
-    document.getElementById('Script-Blox').onclick = function () {
-        window.open("https://scriptblox.com/u/Viper", "_blank");
-    }
-    document.getElementById('Spotify').onclick = function () {
-        window.open("https://open.spotify.com/user/31ba4npdeg5oazuyrctq4ruozoae", "_blank");
-    }
-    document.getElementById('Github').onclick = function () {
-        window.open("https://github.com/Cosmella-v", "_blank");
-    }
-    document.getElementById('Youtube').onclick = function () {
-        window.open("https://www.youtube.com/channel/UC3A8dtlO94rHEkn4Kz7aB7g", "_blank");
-    }
-    document.getElementById('Steam').onclick = function () {
-        window.open("https://steamcommunity.com/profiles/76561199093028507", "_blank");
-    }
-    document.getElementById('Codeburg').onclick = function () {
-        window.open("https://codeberg.org/Cosmella-v", "_blank");
+    // this is way better for buttons lol
+    const linkbtns = document.getElementsByClassName("link-button")
+    for (let i = 0; i < linkbtns.length; i++) {
+        let button = linkbtns[i]
+        if (button && button.getAttribute("link")) {
+            const link = button.getAttribute("link")
+            button.onclick = function() {
+                window.open(`${link}?ref=Cosmella-v`, "_blank");
+            }
+        }
     }
 </script>
+
 <script>
     // injects into the IFrame
     const iframe = document.getElementById('Cosmella-profile');
+        const cs = `
+        .profile-card, .activity, .profile-info h2, .profile-info p, .avatar .profile, h1, h2, p {
+            color: #ffffff;
+            background: initial!important;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: overflow;
+            background: initial!important;
+        }
+        ::-webkit-scrollbar {
+                width: 0px;
+                height: 0px;
+        }
+        body::-webkit-scrollbar {
+                display: none;
+                overflow: -moz-scrollbars-none;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .activity {
+            box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            -webkit-backdrop-filter: blur(5px);
+            border-color: rgba(222, 255, 222, 1);
+            backdrop-filter: blur(5px);
+        }
 
-    const JS = `
-   function ProfileAdded(avatarImg) {
-        const wrapper = document.createElement('span');
-        wrapper.style.display = 'inline-flex';
-        wrapper.style.alignItems = 'left';
-        wrapper.style.padding = '8px';
-
-        avatarImg.parentElement.insertBefore(wrapper, avatarImg);
-
-        const newImg1 = document.createElement('img');
-        newImg1.src = avatarImg.src;
-        newImg1.alt = "profile";
-        newImg1.style.width = avatarImg.style.width;
-        newImg1.style.height =  avatarImg.style.height;
-
-        const newImg2 = document.createElement('img');
-        newImg2.src = 'https://cosmella-v.github.io/other-icon.png';
-        newImg2.alt = 'Other icons stuff';
-        newImg2.style.width = newImg1.style.width;
-        newImg2.style.height = newImg1.style.height;
-
-        wrapper.appendChild(newImg1);
-        wrapper.appendChild(newImg2);
-        avatarImg.remove();
-    }
-
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach(mutation => {
-            mutation.addedNodes.forEach(node => {
-                if (node.nodeType === 1) { 
-                    if (node.tagName === 'IMG' && node.alt && node.alt.includes("cosmella_v's avatar")) {
-                        ProfileAdded(node);
-                    } else {
-                        const imgs = node.querySelectorAll("img[alt*=\\"cosmella_v's avatar\\"]");
-                        imgs.forEach(img => ProfileAdded(img));
-                    }
-                }
-            });
-        });
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-`;
-    const cs = `
-     .profile-card, .activity, .profile-info h2, .profile-info p {
-                        color: #ffffff;
-                    }
-    html, body {
-        margin: 0;
-        padding: 0;
+    .profile-card {
+        width: 100vw;
         height: 100%;
-        overflow: overflow;
+        box-shadow: 0 0px 0px 0 rgba(164, 211, 168, 0);
+        
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 0;
+        border: 0px solid rgba(255, 255, 255, 0);
     }
-    ::-webkit-scrollbar {
-            width: 0px;
-            height: 0px;
+    .slider .progress {
+        background: #a83dff;
     }
-    body::-webkit-scrollbar {
-            display: none;
-            overflow: -moz-scrollbars-none;
+    .profile-info {
+        width: 100%;
+        overflow: auto; 
+        background: transparent;
+        box-sizing: border-box;
+        padding: 20px; 
+        scrollbar-width: none; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -ms-overflow-style: none;  
     }
-    body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        background: rgba(255, 255, 255, 0);
+    .profile-info::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
     }
-    .activity {
-        background: rgba(0,77,0, 0.2);
-        box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
-        border-color: rgba(255, 255, 255, 0.4);
-        border-radius: 12px;
-        -webkit-backdrop-filter: blur(11px);
-        border-color: rgba(222, 255, 222, 1);
-        backdrop-filter: blur(11px);
-    }
-
-   .profile-card {
-    width: 100vw;
-    height: 100%;
-    background: rgba(12, 255, 24, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
-    
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 0;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    position: relative;
-    overflow: auto;
-    flex-direction: column;
-}
-.slider .progress {
-    background: #a83dff;
-}
-.profile-info {
-    flex: 1 1 auto; 
-    width: 100%;
-    overflow: auto; 
-    background: transparent;
-    box-sizing: border-box;
-    padding: 20px; 
-    scrollbar-width: none; 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -ms-overflow-style: none;  
-}
-.profile-info::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, Opera */
-}
-`
+    `
     iframe.addEventListener('load', () => {
         console.log('injected theming');
-        iframe.contentWindow.postMessage({ type: 'inject-js', js: JS }, '*');
-        iframe.contentWindow.postMessage({ type: 'inject-css', css: cs }, '*');
+        iframe.contentWindow.postMessage({ type: 'css', content: cs }, '*');
     });
 
 </script>
