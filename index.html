@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cosmella's Site</title>
     <style>
+        pad {
+            display: block;
+            padding-left: 15px;
+        }
+
         ::-webkit-scrollbar {
             width: 0px;
             height: 0px;
@@ -18,6 +23,8 @@
         }
 
         h1,
+        h3,
+        h4,
         h2 {
             color: #ffffff;
         }
@@ -237,7 +244,7 @@
             justify-content: center;
             max-width: calc(100vw - 20px);
             position: absolute;
-            top: 50%;
+            top: 15%;
             left: clamp(5px, calc(10% - (clamp(240px, 90vw, 440px) / 2) - clamp(70px, 15vw, 110px)), 50px);
             transform: translateY(-50%);
             z-index: 10;
@@ -260,6 +267,24 @@
                 style="border: none; margin: 0; padding: 0; display: block; overflow: auto; border-radius: 20px;">
             </iframe>
         </div>
+
+        <br>
+        <div class="glass-card compact">
+            <pad>
+                <h4>
+                    Hello, im Cosmella!
+                    I do backend development in lua, c++ and javascript!
+                </h4>
+            </pad>
+        </div>
+        <br>
+        <h1>Projects</h1>
+        <div class="projects" id="projects">
+
+        </div>
+
+        <br>
+        <h1>My Links</h1>
         <div class="glass-card compact">
             <div class="button-list">
                 <button class="link-button" id="Youtube"
@@ -284,23 +309,213 @@
                     <img src="https://cdn.simpleicons.org/github" alt="icon" class="btn-icon" />
                     Viper (@Cosmella-v)
                 </button>
-                <button class="link-button" id="Steam" link="https://steamcommunity.com/profiles/76561199093028507">
-                    <img src="https://cdn.simpleicons.org/steam" alt="icon" class="btn-icon" />
-                    Viper
-                </button>
-                <button class="link-button" id="Profile" link="https://www.roblox.com/users/530829101/profile">
-                    <img src="https://cdn.simpleicons.org/roblox" alt="icon" class="btn-icon" />
-                    Viper (@Viper_Protogen)
-                </button>
-                <button class="link-button" id="Script-Blox" link="https://scriptblox.com/u/Viper">
-                    <img src="https://r2.guns.lol/7e671c9b-1689-4d72-a5e5-b972f7d7fb09.png" alt="icon"
-                        class="btn-icon" />
-                    Viper
-                </button>
             </div>
         </div>
     </div>
 </body>
+
+<style>
+    .project-card {
+        flex: 0 0 auto;
+        width: fit-content;
+        max-width: 100%;
+        background-size: 200% 200%;
+        background:
+            radial-gradient(circle at top, #5f05c5, transparent 70%),
+            radial-gradient(circle at right, #028f02, transparent 70%),
+            radial-gradient(ellipse at bottom, #dd2fec, transparent),
+            radial-gradient(ellipse at left, #4d9f0c, transparent);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        /*background: rgba(66, 12, 153, 0.3);*/
+        box-shadow: 0 8px 32px 0 rgba(164, 211, 168, 0.2);
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        flex-direction: column;
+    }
+
+    .tag-image {
+        max-width: 20px;
+        max-height: 20px;
+    }
+    .project-icon {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .project-small-icon {
+        max-width: 64px;
+        max-height: 64px;
+    }
+
+    .project-small-icon:hover,
+    .project-icon:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(222, 255, 222, 0.4);
+        transform: translateY(-2px);
+    }
+    .project-name {
+        margin-bottom: 1px;
+        font-size: medium;
+        font-weight: 700;
+        display: flex;
+        margin: 0.5rem 0;
+        color:white
+    }
+    .project-details {
+        font-size: small;
+        margin: 0.2rem 0;
+        display: flex;
+        color: rgb(201, 201, 201);
+    }
+
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .projects {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        align-items: flex-start;
+    }
+
+   .project-tag {
+        display: inline-flex;
+        width: fit-content;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+
+        padding: 8px 12px;
+
+        text-align: left;
+        
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.1);
+
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
+
+        color: white;
+        font-weight: 600;
+        font-size: 0.7rem;
+
+        cursor: pointer;
+        transition: background 0.3s ease,
+                    border-color 0.3s ease,
+                    transform 0.15s ease;
+    }
+    .project-tag img {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        object-fit: contain;
+    }
+    .project-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(222, 255, 222, 0.4);
+            transform: translateY(-2px);
+        }
+
+</style>
+
+<script>
+    const URL = "/projects.json";
+    let responseTags = {}
+    const showInfo = (repo, data) => {
+        const card = document.createElement("div");
+        card.className = "project-card";
+
+        const icon = document.createElement("img");
+        const getPlatformIcon = (repo) => {
+            if (repo.includes("github.com")) {
+                return "https://cdn.simpleicons.org/github";
+            }
+            if (repo.includes("codeberg.org")) {
+                return "https://design.codeberg.org/logo-kit/icon.svg";
+            }
+            if (repo.includes("git.eclipse.menu")) {
+                return "https://git.eclipse.menu/assets/img/logo.svg";
+            }
+            if (repo.includes("git.gay")) {
+                return "https://git.gay/assets/img/logo.svg";
+            }
+            return "https://git-scm.com/images/logo@2x.png";
+        };
+        if (data.image) {
+            icon.src = data.image
+            icon.className = "project-icon";
+        } else {
+            icon.src = getPlatformIcon(repo);
+            icon.className = "project-small-icon";
+        }
+        if (!Number(repo)){ // is it a link
+            icon.onclick = function () {
+                window.open(`${repo}?ref=Cosmella-v`, "_blank");
+            }
+        } else {
+             if (data.image) {
+                window.open(`${data.image}?ref=Cosmella-v`, "_blank");
+             }
+        }
+
+        const name = document.createElement("span");
+        name.className = "project-name";
+        name.textContent = data.title||"";
+
+        const details = document.createElement("span");
+        details.className = "project-details";
+        details.textContent = data.details||"";
+
+        const tags = document.createElement("div");
+        tags.className = "project-tags";
+
+        for (const tag of data.tags) {
+            const tagElement = document.createElement("span");
+            console.log(responseTags, tag);
+            const taginfo = responseTags[tag] || {}
+            tagElement.title = taginfo.hover || "";
+            tagElement.className = "project-tag";
+            const image = document.createElement("img");
+            image.className = "tag-image";
+            image.src =  taginfo.icon || "";
+            tagElement.append(image, document.createTextNode(taginfo.text || tag));
+            tags.append(tagElement);
+        }
+
+        card.append(icon, name, details, tags);
+
+        return card;
+    };
+    // projects
+    const projects = document.querySelectorAll(".projects");
+    fetch(URL)
+        .then(response => response.json())
+        .then(data => {
+            responseTags = data.tags || tags
+            for (let i = 0; i < projects.length; i++) {
+
+                let object = projects[i];
+
+                if (object) {
+                    for (const [id, project] of Object.entries(data.projects || {})) {
+                        object.append(showInfo(id, project));
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 <script>
     // this is way better for buttons lol
@@ -334,7 +549,7 @@
             document.addEventListener("mousemove", (e) => {
                 handleFunction(e.clientX)
             })
-            document.addEventListener("touchmove", function(e) {
+            document.addEventListener("touchmove", function (e) {
                 handleFunction(e.changedTouches[0].clientX)
             })
         }

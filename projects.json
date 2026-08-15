@@ -1,0 +1,69 @@
+{
+    "tags" : {
+        "javascript" : {
+            "text": "Javascript",
+            "hover": "Javascript. What this website is powered by!",
+            "icon": "https://cdn.simpleicons.org/javascript"
+        },
+        "css": {
+            "text": "CSS",
+            "hover": "CSS a language used to style websites!",
+            "icon": "https://cdn.simpleicons.org/css"
+        },
+        "yaml": {
+            "text":"YAML",
+            "hover": "A human readable data serialization format",
+            "icon" : "https://cdn.simpleicons.org/yaml"
+        },
+        "json":{
+            "text": "Json",
+            "hover":"A lightweight data format",
+            "icon" : "https://cdn.simpleicons.org/json"
+        },
+        "cpp":{
+            "text": "C++",
+            "hover":"A compiled language used for apps",
+            "icon" : "https://cdn.simpleicons.org/c++"
+        },
+        "lua":{
+            "text": "Lua",
+            "hover":"A lightweight embeddable scripting language",
+            "icon" : "https://cdn.simpleicons.org/lua"
+        },
+        "luau":{
+            "text": "Luau",
+            "hover":"A lightweight embeddable scripting language made by roblox",
+            "icon" : "https://cdn.simpleicons.org/luau"
+        },
+        "geode":{
+            "text": "Geode",
+            "hover":"A SDK used to help mod Geometry Dash",
+            "icon": "https://avatars.githubusercontent.com/u/88206422?s=200&v=4"
+        }
+    },
+    "projects" : {
+        "MarkdownViewer.html?file=projects/spotode/about.md": {
+            "title": "Spotode",
+            "tags" : ["javascript", "css", "lua", "json"],
+            "details" : "A cute spotify mod",
+            "image" : "projects/spotode/mods.png"
+        },
+        "https://github.com/Cosmella-v/spotify-mappings" : {
+            "title": "Spotify mappings",
+            "tags" : ["javascript","yaml","json"],
+            "details" : "bindings for spotify!"
+        },
+        "https://github.com/Cosmella-v/endscreen-rewards-api": {
+            "title":"Endscreen rewards",
+            "details":"A Geometry Dash mod api to add stats to the endscreen",
+            "tags": ["cpp", "geode"],
+            "image":"https://raw.githubusercontent.com/Cosmella-v/endscreen-rewards-api/refs/heads/main/logo.png"
+        },
+        "https://github.com/Cosmella-v/CoinShower": {
+            "title":"Coin Shower",
+            "details":"A Geometry Dash mod that makes Coins shower when you try collecting them",
+            "tags": ["cpp", "geode"],
+            "image":"https://raw.githubusercontent.com/Cosmella-v/CoinShower/refs/heads/main/logo.png"
+        }
+    }
+}

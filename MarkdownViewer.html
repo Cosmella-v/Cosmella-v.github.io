@@ -1,0 +1,128 @@
+<head>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/100521306">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<div id="markdown"></div>
+<style>
+     ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+            overflow: -moz-scrollbars-none;
+        }
+
+        * {
+            color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            align-items: safe center;
+            justify-content: center;
+            justify-content: safe center;
+            font-family: sans-serif;
+            overflow-x: hidden;
+            /* prevent horizontal scroll */
+            overflow-y: auto;
+            padding: 20px 12px 5px;
+            /*fix scrolling not going far enough*/
+            position: relative;
+        }
+
+        @keyframes flow {
+
+            /* ughh math*/
+            0% {
+                background-position: 0% 0%;
+            }
+
+            16.67% {
+                background-position: 50% 100%;
+            }
+
+            33.33% {
+                background-position: 100% 50%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            66.67% {
+                background-position: 50% 100%;
+            }
+
+            83.33% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -50px;
+
+            background:
+                /* based on a gradent from https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/radial-gradient */
+                radial-gradient(circle at top, #380474, transparent 70%),
+                radial-gradient(circle at right, #004d00, transparent 70%),
+                radial-gradient(ellipse at bottom, #db64e6, transparent),
+                radial-gradient(ellipse at left, #4d9f0c, transparent),
+                #000000;
+
+            background-size: 200% 200%;
+            animation: flow 50s ease-in-out infinite;
+
+            z-index: -2;
+        }
+</style>
+<script>
+const params = new URLSearchParams(window.location.search);
+const markdownPath = params.get("file");
+if (!markdownPath) {
+    document.getElementById("markdown").innerHTML = "no markdown file found!";
+    alert("no markdown file to open");
+} else {
+fetch(markdownPath)
+    .then(response => response.text())
+    .then(markdown => {
+        const basePath = markdownPath.substring(
+            0,
+            markdownPath.lastIndexOf("/") + 1
+        );
+
+        markdown = markdown.replace(
+            /(<img\s+[^>]*src=["'])(?!https?:\/\/|\/)([^"']+)(["'])/gi,
+            `$1${basePath}$2$3`
+        );
+
+        markdown = markdown.replace(
+            /(!\[[^\]]*\]\()(?!https?:\/\/|\/)([^)]+)(\))/gi,
+            `$1${basePath}$2$3`
+        );
+
+        document.getElementById("markdown").innerHTML = marked.parse(markdown);
+    })
+    .catch(error => {
+        console.error(error)
+        document.getElementById("markdown").innerHTML = error;
+    });
+}
+</script>
