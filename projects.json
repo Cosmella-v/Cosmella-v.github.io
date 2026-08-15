@@ -64,6 +64,12 @@
             "details":"A Geometry Dash mod that makes Coins shower when you try collecting them",
             "tags": ["cpp", "geode"],
             "image":"https://raw.githubusercontent.com/Cosmella-v/CoinShower/refs/heads/main/logo.png"
+        },
+        "https://github.com/Cosmella-v/Happi-Controller-Buttons": {
+            "title":"Happy Controller Buttons",
+            "details":"A Geometry Dash mod that fixes the controller indactors",
+            "tags": ["cpp", "geode"],
+            "image":"https://raw.githubusercontent.com/Cosmella-v/Happi-Controller-Buttons/refs/heads/main/logo.png"
         }
     }
 }
